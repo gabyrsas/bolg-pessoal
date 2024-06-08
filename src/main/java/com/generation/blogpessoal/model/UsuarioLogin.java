@@ -57,12 +57,5 @@ public class UsuarioLogin {
 		this.token = token;
 	}
 
-	public UsuarioLogin(Long id, @NotNull(message = "O Atributo Nome é Obrigatório!") String nome, @NotNull(message = "O Atributo Usuário é Obrigatório!")String usuario,  String senha, String foto) {
-		this.id = id;
-		this.nome = nome;
-		this.usuario = usuario;
-		this.senha = senha;
-		this.foto = foto;
-	}
 
 }
