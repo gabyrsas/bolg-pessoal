@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -26,6 +27,26 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotNull(message = "O Atributo Nome é obrigatório!")
+	@Size(min = 2, max = 50, message = "O campo de nome precisa ter 4 a 50 caracteres")
+	private String nome;
+	
+	@Schema(example = "email@email.com.br")
+	@NotNull(message = "O atributo E-mail é obrigatório!")
+	@Email(message = "O Atributo deve ser um E-mail válido!")
+	private String usuario;
+	
+	@NotBlank(message = "O atributo Senha é obrigatório!")
+	@Size(min = 8, message = "A Senha deve ter no minimo 8 caracteres!")
+	private String senha;
+	
+	@Size(max = 5000, message = "A Foto deve ter no máximo 5000 caracteres!")
+	private String foto;
+	
+	@OneToMany (fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("usuario")
+	private List<Postagem> postagem;
 
 	public Usuario(Long id, String nome, String usuario, String senha, String foto) {
 		this.id = id;
@@ -34,25 +55,6 @@ public class Usuario {
 		this.senha = senha;
 		this.foto = foto;
 	}
-
-	@NotNull(message = "O Atributo Nome é Obrigatório!")
-	private String nome;
-
-	@NotNull(message = "O Atributo Usuário é Obrigatório!")
-	@Email(message = "O Atributo Usuário deve ser um email válido!")
-	private String usuario;
-
-	@NotBlank(message = "O Atributo Senha é Obrigatório!")
-	@Size(min = 8, message = "A Senha deve ter no mínimo 8 caracteres")
-	private String senha;
-
-	@Size(max = 5000, message = "O link da foto não pode ser maior do que 5000 caracteres")
-	private String foto;
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties("usuario")
-	private List<Postagem> postagem;
-
 
 	public Long getId() {
 		return this.id;

@@ -86,6 +86,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/x
 		<version>2.2.0</version>
 	 </dependency>
 </dependencies>
+<!-- Dependência do Banco de dados PostgreSQL -->
+<dependency>
+	<groupId>org.postgresql</groupId>
+	<artifactId>postgresql</artifactId>
+</dependency> 
 
 <build>
 <plugins>
