@@ -59,13 +59,15 @@ package com.generation.blogpessoal.controller;
 		@DisplayName("Não deve permitir duplicação do Usuário")
 		public void naoDeveDuplicarUsuario() {
 
-			usuarioService.cadastrarUsuario(new Usuario(0L, "Isabela Yukari Akiyama", "isabelaakiyama20@email.com.br", "13465278", "-"));
+			usuarioService.cadastrarUsuario(new Usuario(0L, 
+					"Beatriz Rosa", "biahrosa@email.com.br", "13465278", "-"));
 
 			HttpEntity<Usuario> corpoRequisicao = new HttpEntity<Usuario>(
-					new Usuario(0L, "Isabela Yukari Akiyama", "isabelaakiyama20@email.com.br", "13465278", "-"));
+					new Usuario(0L, 
+							"Beatriz Rosa", "biahrosa@email.com.br", "13465278", "-"));
 
-			ResponseEntity<Usuario> corpoResposta = testRestTemplate.exchange("/usuarios/cadastrar", HttpMethod.POST,
-					corpoRequisicao, Usuario.class);
+			ResponseEntity<Usuario> corpoResposta = testRestTemplate
+					.exchange("/usuarios/cadastrar", HttpMethod.POST,corpoRequisicao, Usuario.class);
 
 			assertEquals(HttpStatus.BAD_REQUEST, corpoResposta.getStatusCode());
 		}
@@ -74,15 +76,15 @@ package com.generation.blogpessoal.controller;
 		@DisplayName("Atualizar um Usuário")
 		public void deveAtualizarUmUsuario() {
 			
-			Optional<Usuario> usuarioCadastrado = usuarioService.cadastrarUsuario(
-					new Usuario (0L, "Daniel Akiyama", "danielakiyama8@email.com.br", "12345678", "-"));
+			Optional<Usuario> usuarioCadastrado = usuarioService.cadastrarUsuario(new Usuario (0L, 
+					"Gabriela Rosa", "gaby14rsas@gmail.com", "12345678", "-"));
 			
-		    Usuario usuarioUpdate = 
-					new Usuario(usuarioCadastrado.get().getId(), "Daniel Saburo Akiyama", "danielakiyama8@email.com.br", "12345678", "-");
+		    Usuario usuarioUpdate = new Usuario(usuarioCadastrado.get().getId(),"Gabriela Roosa", "gaby14rsa@gmail.com.br", "12345678", "-");
 
 			HttpEntity<Usuario> corpoRequisicao = new HttpEntity<Usuario>(usuarioUpdate);
 
-			ResponseEntity<Usuario> corpoResposta = testRestTemplate.withBasicAuth("root@root.com", "rootroot")
+			ResponseEntity<Usuario> corpoResposta = testRestTemplate
+					.withBasicAuth("root@root.com", "rootroot")
 					.exchange("/usuarios/atualizar", HttpMethod.PUT, corpoRequisicao, Usuario.class);
 
 			assertEquals(HttpStatus.OK, corpoResposta.getStatusCode());
@@ -94,10 +96,10 @@ package com.generation.blogpessoal.controller;
 		public void deveMostrarTodosUsuarios() {
 
 			usuarioService
-					.cadastrarUsuario(new Usuario(0L, "Daniel Saburo Akiyama", "danielakiyama23@gmail.com", "12345678", "-"));
+					.cadastrarUsuario(new Usuario(0L, "Gabriela Rosa", "gaby14rsas@gmail.com", "12345678", "-"));
 
 			usuarioService
-					.cadastrarUsuario(new Usuario(0L, "Isabela Yukari Akiyama", "isabelaakiyama20@email.com.br", "13465278", "-"));
+					.cadastrarUsuario(new Usuario(0L, "Beatriz Rosa", "biahrosa@email.com.br", "13465278", "-"));
 
 			ResponseEntity<String> resposta = testRestTemplate.withBasicAuth("root@root.com", "rootroot")
 					.exchange("/usuarios/all", HttpMethod.GET, null, String.class);

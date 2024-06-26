@@ -23,7 +23,7 @@ public class SwaggerConfig {
 						.description("Projeto Blog Pessoal desenvolvido na Generation Brasil")
 						.version("v0.0.1")
 			    .license(new License()
-								.name("Gabriela Rosa França dos Santos")
+								.name(" Gabriela Rosa França dos Santos")
 								.url("Meu site - LinkedIn"))
 			    .contact(new Contact()
 								.name("Gabriela Rosa França dos Santos").url("")
